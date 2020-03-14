@@ -10,7 +10,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.hariofspades.dagger2advanced.adapter.RandomUserAdapter;
 import com.hariofspades.dagger2advanced.interfaces.RandomUsersApi;
-import com.hariofspades.dagger2advanced.model.RandomUsers;
+import com.hariofspades.dagger2advanced.model.RandomUsersService;
 import com.jakewharton.picasso.OkHttp3Downloader;
 import com.squareup.picasso.Picasso;
 
@@ -86,10 +86,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void populateUsers() {
-        Call<RandomUsers> randomUsersCall = getRandomUserService().getRandomUsers(10);
-        randomUsersCall.enqueue(new Callback<RandomUsers>() {
+        Call<RandomUsersService> randomUsersCall = getRandomUserService().getRandomUsers(10);
+        randomUsersCall.enqueue(new Callback<RandomUsersService>() {
             @Override
-            public void onResponse(Call<RandomUsers> call, @NonNull Response<RandomUsers> response) {
+            public void onResponse(Call<RandomUsersService> call, @NonNull Response<RandomUsersService> response) {
                 if(response.isSuccessful()) {
                     mAdapter = new RandomUserAdapter();
                     mAdapter.setItems(response.body().getResults());
@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<RandomUsers> call, Throwable t) {
+            public void onFailure(Call<RandomUsersService> call, Throwable t) {
                 Timber.i(t.getMessage());
             }
         });

@@ -1,6 +1,6 @@
 package com.hariofspades.dagger2advanced.interfaces;
 
-import com.hariofspades.dagger2advanced.model.RandomUsers;
+import com.hariofspades.dagger2advanced.model.RandomUsersService;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -13,5 +13,5 @@ import retrofit2.http.Query;
 public interface RandomUsersApi {
 
     @GET("api/1.1/")
-    Call<RandomUsers> getRandomUsers(@Query("results") int size);
+    Call<RandomUsersService> getRandomUsers(@Query("results") int size);
 }
