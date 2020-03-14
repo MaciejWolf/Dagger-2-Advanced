@@ -10,12 +10,15 @@ public class Location {
     @SerializedName("street")
     @Expose
     private String street;
+
     @SerializedName("city")
     @Expose
     private String city;
+
     @SerializedName("state")
     @Expose
     private String state;
+
     @SerializedName("postcode")
     @Expose
     private String postcode;

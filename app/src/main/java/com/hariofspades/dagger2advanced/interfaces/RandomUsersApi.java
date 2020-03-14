@@ -12,6 +12,6 @@ import retrofit2.http.Query;
 
 public interface RandomUsersApi {
 
-    @GET("api")
+    @GET("api/1.1/")
     Call<RandomUsers> getRandomUsers(@Query("results") int size);
 }

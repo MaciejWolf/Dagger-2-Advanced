@@ -10,12 +10,15 @@ public class Info {
     @SerializedName("seed")
     @Expose
     private String seed;
+
     @SerializedName("results")
     @Expose
     private Integer results;
+
     @SerializedName("page")
     @Expose
     private Integer page;
+
     @SerializedName("version")
     @Expose
     private String version;

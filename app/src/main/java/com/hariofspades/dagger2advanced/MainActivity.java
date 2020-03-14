@@ -11,7 +11,12 @@ import com.google.gson.GsonBuilder;
 import com.hariofspades.dagger2advanced.adapter.RandomUserAdapter;
 import com.hariofspades.dagger2advanced.interfaces.RandomUsersApi;
 import com.hariofspades.dagger2advanced.model.RandomUsers;
+import com.jakewharton.picasso.OkHttp3Downloader;
+import com.squareup.picasso.Picasso;
 
+import java.io.File;
+
+import okhttp3.Cache;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
@@ -27,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     RandomUserAdapter mAdapter;
 
+    Picasso picasso;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +44,11 @@ public class MainActivity extends AppCompatActivity {
         Gson gson = gsonBuilder.create();
 
         Timber.plant(new Timber.DebugTree());
+
+        File cacheFile = new File(this.getCacheDir(), "HttpCache");
+        cacheFile.mkdirs();
+
+        Cache cache = new Cache(cacheFile, 10* 1000 * 1000);
 
         HttpLoggingInterceptor httpLoggingInterceptor = new
                 HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
@@ -50,8 +62,13 @@ public class MainActivity extends AppCompatActivity {
 
         OkHttpClient okHttpClient = new OkHttpClient()
                 .newBuilder()
+                .cache(cache)
                 .addInterceptor(httpLoggingInterceptor)
                 .build();
+
+        OkHttp3Downloader okHttpDownloader = new OkHttp3Downloader(okHttpClient);
+
+        picasso = new Picasso.Builder(this).downloader(okHttpDownloader).build();
 
         retrofit = new Retrofit.Builder()
                 .client(okHttpClient)
@@ -90,6 +107,4 @@ public class MainActivity extends AppCompatActivity {
     public RandomUsersApi getRandomUserService(){
         return retrofit.create(RandomUsersApi.class);
     }
-
-
 }

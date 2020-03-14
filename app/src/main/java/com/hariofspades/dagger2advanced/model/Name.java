@@ -10,9 +10,11 @@ public class Name {
     @SerializedName("title")
     @Expose
     private String title;
+
     @SerializedName("first")
     @Expose
     private String first;
+
     @SerializedName("last")
     @Expose
     private String last;

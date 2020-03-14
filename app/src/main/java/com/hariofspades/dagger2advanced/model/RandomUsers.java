@@ -11,6 +11,7 @@ public class RandomUsers {
     @SerializedName("results")
     @Expose
     private List<Result> results = null;
+
     @SerializedName("info")
     @Expose
     private Info info;
